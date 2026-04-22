@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+  {% seo title=false %}
+  <script>
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      document.documentElement.setAttribute('data-lang', lang);
+    })();
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="{{ '/' | relative_url }}" class="site-name">Yihan Li</a>
+    <nav class="site-nav">
+      {% for item in site.data.navigation %}
+        <a href="{{ item.url | relative_url }}" class="nav-link{% if page.url == item.url %} active{% endif %}">{{ item.title }}</a>
+      {% endfor %}
+      <button class="lang-toggle" onclick="toggleLang()" aria-label="Toggle language">
+        <span class="en">中文</span><span class="zh">EN</span>
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+    </nav>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    {% for item in site.data.navigation %}
+      <a href="{{ item.url | relative_url }}" class="mobile-nav-link">{{ item.title }}</a>
+    {% endfor %}
+  </div>
+
+  <main class="main-content">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Yihan Li · <a href="mailto:liyihan.xyz@gmail.com">liyihan.xyz@gmail.com</a></span>
+    <span><a href="https://github.com/HY-LiYihan" target="_blank">GitHub</a></span>
+  </footer>
+
+  <script>
+    function toggleLang() {
+      var html = document.documentElement;
+      var current = html.getAttribute('data-lang');
+      var next = current === 'en' ? 'zh' : 'en';
+      html.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+    }
+    function toggleMobileMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
+    }
+    document.querySelector('.main-content')?.addEventListener('click', function() {
+      document.getElementById('mobileNav').classList.remove('open');
+    });
+  </script>
+</body>
+</html>

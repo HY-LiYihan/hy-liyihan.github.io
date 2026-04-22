@@ -1,0 +1,23 @@
+title: Yihan Li
+description: Robotics Researcher at Sun Yat-sen University
+baseurl: ""
+url: "https://hy-liyihan.github.io"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - Chinese_CV.md
+  - English_CV.md
